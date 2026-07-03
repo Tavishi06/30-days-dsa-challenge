@@ -5,4 +5,4 @@
 | 3 | Maximum Consecutive Ones            | 
 | 4 | Remove Duplicates from sorted array | 
 | 5 | Remove Element                      |
-| 4 | Single element from sorted array    | 
+| 6 | Single element from sorted array    | 
