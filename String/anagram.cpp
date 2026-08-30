@@ -3,35 +3,30 @@
 #include <unordered_map>
 using namespace std;
 
-class Solution
-{
+class Solution {
 public:
-    bool isAnagram(string s, string t)
-    {
-        if (s.size() != t.size())
-        {
+    bool isAnagram(string s, string t) {
+
+        // If lengths are different, they cannot be anagrams
+        if (s.size() != t.size()) {
             return false;
         }
 
         unordered_map<char, int> mp;
 
         // Count characters in s
-        for (char c : s)
-        {
+        for (char c : s) {
             mp[c]++;
         }
 
-        // Remove characters using t
-        for (char c : t)
-        {
+        // Subtract characters using t
+        for (char c : t) {
             mp[c]--;
         }
 
-        // Check if all frequencies are zero
-        for (auto x : mp)
-        {
-            if (x.second != 0)
-            {
+        // Every character count should be 0
+        for (auto x : mp) {
+            if (x.second != 0) {
                 return false;
             }
         }
