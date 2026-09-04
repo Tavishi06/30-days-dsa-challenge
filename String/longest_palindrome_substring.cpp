@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Solution {
+    public:
+    
+        string expand(string s, int left, int right) {
+    
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+    
+        return s.substr(left + 1, right - left - 1);
+    }
+    
+    string longestPalindrome(string s) {
+    
+        string ans = "";
+    
+        for (int i = 0; i < s.size(); i++) {
+    
+            // Odd length palindrome
+            string odd = expand(s, i, i);
+    
+            // Even length palindrome
+            string even = expand(s, i, i + 1);
+    
+            if (odd.size() > ans.size()) {
+                ans = odd;
+            }
+    
+            if (even.size() > ans.size()) {
+                ans = even;
+            }
+        }
+    
+        return ans;
+    }
+};
+
+int main() {
+    Solution sol;
+    string s = "babad";
+    cout << sol.longestPalindrome(s) << endl;
+    return 0;
+}
