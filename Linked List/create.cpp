@@ -7,8 +7,30 @@ struct Node {
     Node* next;
 };
 
-// Display linked list
-void display(Node* head) {
+int main() {
+
+    // Creating nodes
+    Node* first = new Node();
+    Node* second = new Node();
+    Node* third = new Node();
+
+    // Giving data
+    first->data = 10;
+    second->data = 20;
+    third->data = 30;
+
+    // Connecting nodes
+    first->next = second;
+    second->next = third;
+    third->next = NULL;
+
+    // First node of linked list
+    Node* head = first;
+
+
+    // ---------------- DISPLAY ----------------
+
+    cout << "Original Linked List: ";
 
     Node* temp = head;
 
@@ -18,105 +40,108 @@ void display(Node* head) {
     }
 
     cout << "NULL" << endl;
-}
 
-// Insert at beginning
-void insertAtBeginning(Node*& head, int value) {
+
+    // ---------------- INSERT AT BEGINNING ----------------
 
     Node* newNode = new Node();
 
-    newNode->data = value;
+    newNode->data = 5;
     newNode->next = head;
 
     head = newNode;
-}
 
-// Insert at end
-void insertAtEnd(Node*& head, int value) {
+    cout << "After inserting 5 at beginning: ";
 
-    Node* newNode = new Node();
+    temp = head;
 
-    newNode->data = value;
-    newNode->next = NULL;
-
-    // If linked list is empty
-    if (head == NULL) {
-        head = newNode;
-        return;
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
     }
 
-    Node* temp = head;
+    cout << "NULL" << endl;
+
+
+    // ---------------- INSERT AT END ----------------
+
+    newNode = new Node();
+
+    newNode->data = 40;
+    newNode->next = NULL;
+
+    temp = head;
 
     while (temp->next != NULL) {
         temp = temp->next;
     }
 
     temp->next = newNode;
-}
 
-// Insert at a specific position
-// Position starts from 1
-void insertAtPosition(Node*& head, int value, int position) {
+    cout << "After inserting 40 at end: ";
 
-    // Insert at beginning
-    if (position == 1) {
-        insertAtBeginning(head, value);
-        return;
-    }
+    temp = head;
 
-    Node* newNode = new Node();
-
-    newNode->data = value;
-
-    Node* temp = head;
-
-    // Move to node before the required position
-    for (int i = 1; i < position - 1 && temp != NULL; i++) {
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
         temp = temp->next;
     }
 
-    // Invalid position
-    if (temp == NULL) {
-        cout << "Invalid position!" << endl;
-        delete newNode;
-        return;
+    cout << "NULL" << endl;
+
+
+    // ---------------- INSERT AT POSITION ----------------
+    // Insert 25 at position 4
+
+    newNode = new Node();
+
+    newNode->data = 25;
+
+    temp = head;
+
+    // Move to node before position 4
+    for (int i = 1; i < 3; i++) {
+        temp = temp->next;
     }
 
     newNode->next = temp->next;
     temp->next = newNode;
-}
 
-// Delete from beginning
-void deleteAtBeginning(Node*& head) {
+    cout << "After inserting 25 at position 4: ";
 
-    if (head == NULL) {
-        cout << "Linked list is empty!" << endl;
-        return;
+    temp = head;
+
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
     }
 
-    Node* temp = head;
+    cout << "NULL" << endl;
+
+
+    // ---------------- DELETE FROM BEGINNING ----------------
+
+    temp = head;
 
     head = head->next;
 
     delete temp;
-}
 
-// Delete from end
-void deleteAtEnd(Node*& head) {
+    cout << "After deleting from beginning: ";
 
-    if (head == NULL) {
-        cout << "Linked list is empty!" << endl;
-        return;
+    temp = head;
+
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
     }
 
-    // Only one node
-    if (head->next == NULL) {
-        delete head;
-        head = NULL;
-        return;
-    }
+    cout << "NULL" << endl;
 
-    Node* temp = head;
+
+    // ---------------- DELETE FROM END ----------------
+
+    temp = head;
 
     // Move to second-last node
     while (temp->next->next != NULL) {
@@ -126,34 +151,27 @@ void deleteAtEnd(Node*& head) {
     delete temp->next;
 
     temp->next = NULL;
-}
 
-// Delete from a specific position
-// Position starts from 1
-void deleteAtPosition(Node*& head, int position) {
+    cout << "After deleting from end: ";
 
-    if (head == NULL) {
-        cout << "Linked list is empty!" << endl;
-        return;
-    }
+    temp = head;
 
-    // Delete first node
-    if (position == 1) {
-        deleteAtBeginning(head);
-        return;
-    }
-
-    Node* temp = head;
-
-    // Move to node before the required position
-    for (int i = 1; i < position - 1 && temp != NULL; i++) {
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
         temp = temp->next;
     }
 
-    // Invalid position
-    if (temp == NULL || temp->next == NULL) {
-        cout << "Invalid position!" << endl;
-        return;
+    cout << "NULL" << endl;
+
+
+    // ---------------- DELETE FROM POSITION ----------------
+    // Delete position 3
+
+    temp = head;
+
+    // Move to node before position 3
+    for (int i = 1; i < 2; i++) {
+        temp = temp->next;
     }
 
     Node* toDelete = temp->next;
@@ -161,62 +179,18 @@ void deleteAtPosition(Node*& head, int position) {
     temp->next = toDelete->next;
 
     delete toDelete;
-}
-
-// Main function
-int main() {
-
-    Node* head = NULL;
-
-    // Creating linked list
-    insertAtEnd(head, 10);
-    insertAtEnd(head, 20);
-    insertAtEnd(head, 30);
-
-    cout << "Initial Linked List: ";
-    display(head);
-
-
-    // Insert at beginning
-    insertAtBeginning(head, 5);
-
-    cout << "After inserting 5 at beginning: ";
-    display(head);
-
-
-    // Insert at end
-    insertAtEnd(head, 40);
-
-    cout << "After inserting 40 at end: ";
-    display(head);
-
-
-    // Insert at position
-    insertAtPosition(head, 25, 4);
-
-    cout << "After inserting 25 at position 4: ";
-    display(head);
-
-
-    // Delete from beginning
-    deleteAtBeginning(head);
-
-    cout << "After deleting from beginning: ";
-    display(head);
-
-
-    // Delete from end
-    deleteAtEnd(head);
-
-    cout << "After deleting from end: ";
-    display(head);
-
-
-    // Delete from position
-    deleteAtPosition(head, 3);
 
     cout << "After deleting position 3: ";
-    display(head);
+
+    temp = head;
+
+    while (temp != NULL) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+
+    cout << "NULL" << endl;
+
 
     return 0;
 }
