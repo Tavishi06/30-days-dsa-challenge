@@ -1,0 +1,42 @@
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        
+        vector<int> ans;
+
+        for(int i=0; i<nums.size(); i++){
+
+            int greater = -1;
+
+            for(int j=1; j<nums.size(); j++){
+
+                int index = (i+j) % nums.size();
+                if(nums[index] > nums[i]){
+                    greater = nums[index];
+                    break;
+                }
+            }
+            ans.push_back(greater);
+        }
+        return ans;
+    }
+};
+
+int main(){
+    vector<int> nums = {1, 2, 1}; 
+    Solution obj; 
+    
+    vector<int> ans = obj.nextGreaterElements(nums); 
+    cout << "Answer: "; 
+    for(int x : ans) { 
+        cout << x << " "; 
+    
+    } 
+    cout << endl; 
+    return 0;
+}
